@@ -1,0 +1,74 @@
+{%extends 'myapp/base.html'%}
+{%load static%}
+{%block maincontent%}
+{% if success == False %}
+<!-- <style>
+    .error-message-register{
+        background-color: #ffcccc;
+        color: #ff0000 !important;
+        padding: 10px;
+        margin-bottom: 10px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        width: 70%;
+        
+    }
+</style>
+<script>
+    // Hàm hiển thị thông báo
+    function showErrorMessage(message) {
+        // Tạo một phần tử div để chứa thông báo
+        var errorDiv = document.createElement('h2');
+        
+        // Thiết lập thuộc tính và nội dung cho phần tử div
+        errorDiv.className = 'error-message-register';
+        errorDiv.innerHTML = message;
+        
+        // Thêm phần tử div vào thẻ body của trang web
+        document.body.appendChild(errorDiv);
+        
+        // Đặt thời gian tồn tại cho thông báo (ví dụ: 5 giây)
+        setTimeout(function() {
+            // Xóa phần tử div sau khi thời gian tồn tại kết thúc
+            errorDiv.remove();
+        }, 5000); // Thời gian tồn tại tính bằng mili giây (5 giây = 5000 mili giây)
+    }
+    
+    // Gọi hàm hiển thị thông báo khi đăng ký thất bại
+    showErrorMessage('Đăng ký thất bại! Vui lòng thử lại.');
+</script> -->
+{% endif %}
+<div class="container">
+    <div class="row my-3">
+        <div class="col-sm-6 offset-sm-3">
+            <hr>
+            <h3>Đăng kí</h3>
+            <hr>
+            <form action="" method="post" novalidate class="shadow p-5">
+                {%csrf_token%}
+                {%for fm in form%}
+                {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small>
+                <br>
+                {%endfor%}
+                <input type="submit" value="Đăng kí" class="btn btn-primary"> <br>
+                <div class="text-center text-primary fw-bold">
+                <small>Đã có tài khoản ? <a href="{%url 'login'%}" class="text-danger text-decoration-none">Đăng nhập</a></small>
+                </div>
+                {% if form.non_field_error %}
+                    {% for error in form.non_field_errors %}
+                        <p class="alert alert-danger my-3">{{error}}</p>
+                    {% endfor %}
+                {% endif %}
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li class="alert alert-danger my-3">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock%}

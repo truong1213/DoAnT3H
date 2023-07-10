@@ -1,0 +1,106 @@
+{%extends 'myapp/base.html'%}
+{%load static%}
+{%block title%}Home{%endblock title%}
+{%block banner-slider%}
+<div id="carouselExample" class="carousel slide">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{%static 'myapp/images/2.PNG'%}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{%static 'myapp/images/3.PNG'%}" class="d-block w-100" alt="...">
+      </div>
+      
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+{%endblock banner-slider%}
+{%block maincontent%}
+<div class="container">
+    <div class="row blue-color text-center p-5 text-white border-bottom shadow">
+        <h1>Điện thoại</h1>
+        <div class="row">
+            {% for product in phone_list %}
+            <div class="col-md-4">
+                <div class="card">
+                  <img src="{{product.product_image.url}}" class="card-img-top" alt="Ảnh sản phẩm">
+                  <div class="card-body">
+                    <h5 class="card-title title-product"><a href="{% url 'product_detail' val=product.id%}" class="price-2">{{product.title}}</a></h5>
+                    <p class="card-price">Giá: <span class="price">{{product.discounted_price}}</span>₫  {% if product.selling_price is None %}{%else%}<del class="price-2">{{product.selling_price}}</del>₫{% endif %}</p>
+                    <a href="{%url 'addcart' product_id=product.id%}" class="btn btn-blue">Thêm vào giỏ hàng</a>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row blue-color text-center p-5 text-white border-bottom shadow">
+        <h1>Laptop</h1>
+        <div class="row d-flex align-items-stretch">
+            {% for product in laptop_list %}
+            <div class="col-md-4">
+                <div class="card">
+                  <img src="{{product.product_image.url}}" class="card-img-top" alt="Ảnh sản phẩm">
+                  <div class="card-body">
+                    <h5 class="card-title title-product"><a href="{% url 'product_detail' val=product.id%}" class="price-2">{{product.title}}</a></h5>
+                    <p class="card-price">Giá: <span class="price">{{product.discounted_price}}</span>  {% if product.selling_price is None %}{%else%}<del class="price-2">{{product.selling_price}}</del>{% endif %}</p>
+                    <a href="{%url 'addcart' product_id=product.id%}" class="btn btn-blue">Thêm vào giỏ hàng</a>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+        </div>
+        
+        
+    </div>
+    <div class="row blue-color text-center p-5 text-white border-bottom shadow">
+        <h1>Tablet</h1>
+        <div class="row">
+            {% for product in tablet_list %}
+            <div class="col-md-4">
+                <div class="card">
+                  <img src="{{product.product_image.url}}" class="card-img-top" alt="Ảnh sản phẩm">
+                  <div class="card-body">
+                    <h5 class="card-title title-product"><a href="{% url 'product_detail' val=product.id%}" class="price-2">{{product.title}}</a></h5>
+                    <p class="card-price">Giá: <span class="price">{{product.discounted_price}}</span>  {% if product.selling_price is None %}{%else%}<del class="price-2">{{product.selling_price}}</del>{% endif %}</p>
+                    <a href="{%url 'addcart' product_id=product.id%}" class="btn btn-blue">Thêm vào giỏ hàng</a>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+        </div>
+        
+        
+    </div>
+    <div class="row blue-color text-center p-5 text-white border-bottom shadow">
+        <h1>Phụ kiện</h1>
+        <div class="row row d-flex align-items-stretch">
+            {% for product in phukien_list %}
+            <div class="col-md-4">
+                <div class="card">
+                  <img src="{{product.product_image.url}}" class="card-img-top" alt="Ảnh sản phẩm">
+                  <div class="card-body">
+                    <h5 class="card-title title-product"><a href="{% url 'product_detail' val=product.id%}" class="price-2">{{product.title}}</a></h5>
+                    <p class="card-price">Giá: <span class="price">{{product.discounted_price}}</span>  {% if product.selling_price is None %}{%else%}<del class="price-2">{{product.selling_price}}</del>{% endif %}</p>
+                    <a href="{%url 'addcart' product_id=product.id%}" class="btn btn-blue">Thêm vào giỏ hàng</a>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+        </div>
+        
+        
+    </div>
+</div>
+<script>
+  data = localStorage.getItem('access')
+  console.log(data)
+</script>
+{%endblock%}

@@ -1,0 +1,18 @@
+{%extends 'myapp/base.html'%}
+{%load static%}
+{%block maincontent%}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{ product.product_image }}" class="img-fluid" alt="{{ product.title }}">
+        </div>
+        <div class="col-md-6">
+            <h1 class="mt-4">{{ product.title }}</h1>
+            <p class="mt-4 text-description">{{ product.description }}</p>
+            <h3 class="mt-4">Giá: <span class="price">{{product.discounted_price}}</span>  {% if product.selling_price is None %}{%else%}<del class="price">{{product.selling_price}}</del>{% endif %}</h3>
+            <a href="{%url 'addcart' product_id=product.id%}" class="btn btn-blue mt-4">Thêm vào giỏ hàng</a>
+        </div>
+    </div>
+
+</div>
+{%endblock%}

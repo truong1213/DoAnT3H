@@ -1,0 +1,51 @@
+{%extends 'myapp/base.html'%}
+{%load static%}
+{%block title%}
+<title>product</title>
+{%endblock title%}
+{%block maincontent%}
+<div class="container">
+<div class="row">
+    {% for product in product_list %}
+      <div class="col-md-4">
+        <div class="card h-100">
+            <img src="{{product.product_image}}" class="card-img-top" alt="Ảnh sản phẩm">
+            <div class="card-body">
+              <h5 class="card-title"><a href="{% url 'product_detail' val=product.id%}" class="text-decoration-none text-dark">{{product.title}}</a></h5>
+              <p class="card-text">Giá: <span class="price">{{product.discounted_price}}</span>  {% if product.selling_price is None %}{%else%}<del class="price">{{product.selling_price}}</del>{% endif %}</p>
+              <a href="{%url 'addcart' product_id=product.id%}" class="btn btn-success">Thêm vào giỏ hàng</a>
+            </div>
+          </div>
+      </div>
+      {% if forloop.counter|divisibleby:3 and not forloop.last %}
+        </div><div class="row">
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+        
+   
+
+  <nav aria-label="Page navigation example">
+    <div class="container">
+      <ul class="pagination justify-content-center">
+        {%if previous_page_url %}
+        <li class="page-item"><a class="page-link text-black" href="{{previous_page_url}}">Trước</a></li>
+        {%endif%}
+        {%if first_three_dots%}
+          <li class="page-item"><p class="text-black" >...</p></li>
+        {%endif%}
+        {% for page in page_list %}
+          <li class="page-item"><a class="page-link text-black" href="{%url 'pagination_product' val=category%}?page={{page}}">{{page}}</a></li>
+        {% endfor %}
+        {%if first_three_dots%}
+          <li class="page-item"><p class="text-black page-link" >...</p></li>
+        {%endif%}
+        {%if next_page_url%}
+        <li class="page-item"><a class="page-link text-black" href="{{next_page_url}}">Sau</a></li>
+        {%endif%}
+      </ul>
+    </div>
+  </nav>
+  
+{%endblock%}

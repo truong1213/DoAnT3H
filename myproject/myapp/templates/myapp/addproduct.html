@@ -1,0 +1,58 @@
+{%extends 'myapp/base.html'%}
+{%block title%}
+Thêm sản phẩm
+{%endblock%}
+{%block maincontent%}
+<div class="container">
+    <div class="row ">
+        <div class="col-sm-6 offset-sm-3">
+            <hr>
+            <h3>Thêm sản phẩm</h3>
+            <hr>
+            <form action="{% url 'addproduct' %}" method="post" id="addProductForm"></form>
+                {%csrf_token%}
+                {%for fm in form%}
+                {{fm.label_tag}}{{fm}} <small class="text-danger">{{fm.errors|striptags}}</small> <br>
+                            
+                {%endfor%}
+                <div class="col-12 mt-3">
+                    <input type="submit" class="btn btn-blue" value="Submit">
+                </div>
+                {% if form.non_field_error %}
+                        {% for error in form.non_field_errors %}
+                            <p class="alert alert-danger my-3">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function() {
+    $('#addProductForm').submit(function(event) {
+        event.preventDefault();
+        var url = $('#addProductForm').attr('action');
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            data: $('#addProductForm').serialize(),
+            success: function(response) {
+                // Xử lý phản hồi thành công từ server
+                alert('Form đã được gửi thành công!');
+            },
+            error: function(xhr, errmsg, err) {
+                // Xử lý lỗi từ server
+                alert('Có lỗi xảy ra khi gửi form!');
+            }
+        });
+    });
+});
+
+</script>
+
+{%endblock%}

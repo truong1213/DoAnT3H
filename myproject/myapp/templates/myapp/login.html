@@ -1,0 +1,32 @@
+{%extends 'myapp/base.html'%}
+{%load static%}
+{%block maincontent%}
+<div class="container">
+    <div class="row my-3">
+        <div class="col-sm-6 offset-sm-3">
+            <hr>
+            <h3>Đăng nhập</h3>
+            <hr>
+            <form action="" method="post" novalidate class="shadow p-5" if = "login-form">
+                {%csrf_token%}
+                {%for fm in form%}
+                    {{fm.label_tag}}{{fm}} <small class="text_danger">{{fm.errors|striptags}}</small> <br>
+                {%endfor%}
+
+                <small><a href="{%url 'reset-password'%}">Quên mật khẩu ? </a></small><br>
+                <button type="submit" class="btn btn-blue mt-4" id = "userLogin">Đăng nhập</button> 
+                <div class="text-center text-primary fw-bold">
+                    <small>Chưa có tài khoản ? <a href="{%url 'CustomRegisterView'%}" class="text-danger">Đăng kí</a></small>
+                </div>
+                {% if form.non_field_error %}
+                    {% for error in form.non_field_errors %}
+                        <p class="alert alert-danger my-3">{{error}}</p>
+                    {% endfor %}
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+<script src="{%static 'myapp/js/login.js'%}"></script>
+
+{%endblock%}
